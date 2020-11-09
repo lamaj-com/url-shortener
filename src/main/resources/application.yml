@@ -1,0 +1,46 @@
+spring:
+   application:
+      name: order-service
+      url-shortener-alg-type: RANDOM_WITH_FIXED_LENGTH
+      shortcode-length: 6
+   profiles:
+      active: local
+   jpa:
+      hibernate:
+         use-new-id-generator-mappings: false
+      show-sql: true
+      database-platform: org.hibernate.dialect.H2Dialect
+   jackson:
+      serialization:
+         WRITE_DATES_AS_TIMESTAMPS: false #specifically added for handling Java 8 LocalDate
+         fail_on_empty_beans: false
+   datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:orderservice;
+      username: test
+      password: test
+   h2:
+      console:
+         enabled: true
+
+   
+server:
+   port: ${PORT:8081} #the port of the embedded server
+#   servlet:
+#      context-path: /api
+logging:
+   file: ./logs/orderservice.log
+   level:
+      liquibase: INFO
+#Eureka server url for registering
+#This is eureka client
+eureka:
+   client:
+      register-with-eureka: true
+      fetch-registry: true
+#register url to server
+      serviceUrl:
+         defaultZone: http://service-discovery:8761/eureka/
+instance:
+   hostname: localhost
+

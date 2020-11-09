@@ -1,0 +1,12 @@
+version: "3"
+services:
+  url-shortener:
+    container_name: url-shortener
+    build:
+      context: .
+    networks:
+      - url-shortener-network
+    ports:
+      - "8081:8081"
+networks:
+  url-shortener-network:
